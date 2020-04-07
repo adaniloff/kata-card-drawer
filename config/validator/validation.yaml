@@ -1,0 +1,9 @@
+App\ValueObject\Color:
+  properties:
+    name:
+      - Choice: { callback: [App\Factory\Color\ColorFactory, getChoices], message: 'invalid instance created' }
+
+App\ValueObject\Face:
+  properties:
+    name:
+      - Choice: { callback: [App\Factory\Face\FaceFactory, getChoices], message: 'invalid instance created' }
