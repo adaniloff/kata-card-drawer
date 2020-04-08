@@ -19,11 +19,11 @@ class CardGameFacade implements CardGameFacadeInterface
     private $builder;
 
     /**
-     * @var \Traversable|SortingStrategyInterface[]
+     * @var SortingStrategyInterface[]
      */
     private $strategies;
 
-    public function __construct(CardSetBuilderInterface $builder, \Traversable $strategies)
+    public function __construct(CardSetBuilderInterface $builder, iterable $strategies)
     {
         $this->builder = $builder;
         $this->strategies = $strategies;

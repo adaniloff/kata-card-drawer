@@ -3,16 +3,16 @@
 namespace App\Command;
 
 use App\Facade\CardGameFacadeInterface;
-use App\Strategy\AscSortingStrategy;
+use App\Strategy\FaceAscSortingStrategy;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class HandGenerateRandomCommand extends Command
+class HandGeneratorRandomCommand extends Command
 {
-    protected static $defaultName = 'app:hand:generate-random';
+    protected static $defaultName = 'app:hand:generator';
 
     private $game;
 
@@ -29,7 +29,7 @@ class HandGenerateRandomCommand extends Command
         $this
             ->setDescription('Generate a random hand')
             ->addArgument('quantity', InputArgument::REQUIRED, 'The number of cards in your hand')
-            ->addArgument('sort', InputArgument::OPTIONAL, 'The sorting strategy', AscSortingStrategy::NAME)
+            ->addArgument('sort', InputArgument::OPTIONAL, 'The sorting strategy', FaceAscSortingStrategy::NAME)
         ;
     }
 

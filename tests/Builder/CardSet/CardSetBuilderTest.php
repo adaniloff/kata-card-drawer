@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Builder\Hand;
+namespace App\Tests\Builder\CardSet;
 
 use App\Builder\CardSet\CardSetBuilder;
 use App\Factory\Card\CardFactoryInterface;
