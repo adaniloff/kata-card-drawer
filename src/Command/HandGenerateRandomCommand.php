@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Facade\CardGameFacadeInterface;
+use App\Strategy\AscSortingStrategy;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,6 +29,7 @@ class HandGenerateRandomCommand extends Command
         $this
             ->setDescription('Generate a random hand')
             ->addArgument('quantity', InputArgument::REQUIRED, 'The number of cards in your hand')
+            ->addArgument('sort', InputArgument::OPTIONAL, 'The sorting strategy', AscSortingStrategy::NAME)
         ;
     }
 
@@ -60,7 +62,7 @@ class HandGenerateRandomCommand extends Command
         $io->listing($hand->toArray());
 
         $io->text("And now we sort the hand.");
-        $hand = $this->game->sort($hand);
+        $hand = $this->game->sort($hand, $input->getArgument('sort'));
         $io->listing($hand->toArray());
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');

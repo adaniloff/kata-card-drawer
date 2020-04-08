@@ -7,16 +7,26 @@ use App\Entity\Deck;
 use App\Entity\DeckInterface;
 use App\Factory\Color\ColorFactory;
 use App\Factory\Face\FaceFactory;
+use App\Strategy\RandSortingStrategyInterface;
+use App\Strategy\SortingStrategyInterface;
 use App\ValueObject\CardSet;
 use App\ValueObject\CardSetInterface;
 
 class CardGameFacade implements CardGameFacadeInterface
 {
+    const UNKNOWN_SORTING_STRATEGY = 'Unknown sorting strategy.';
+
     private $builder;
 
-    public function __construct(CardSetBuilderInterface $builder)
+    /**
+     * @var \Traversable|SortingStrategyInterface[]
+     */
+    private $strategies;
+
+    public function __construct(CardSetBuilderInterface $builder, \Traversable $strategies)
     {
         $this->builder = $builder;
+        $this->strategies = $strategies;
     }
 
     public function buildDeck(): DeckInterface
@@ -54,17 +64,19 @@ class CardGameFacade implements CardGameFacadeInterface
         return new CardSet($cards);
     }
 
-    public function sort(CardSetInterface $cardSet): CardSetInterface
+    public function sort(CardSetInterface $cardSet, string $strategyName): CardSetInterface
     {
-        return $cardSet;
+        foreach ($this->strategies as $strategy) {
+            if ($strategyName === $strategy->getName()) {
+                return $strategy->apply($cardSet);
+            }
+        }
+
+        throw new \LogicException(self::UNKNOWN_SORTING_STRATEGY);
     }
 
     public function shuffle(CardSetInterface $cardSet): CardSetInterface
     {
-        $cards = $cardSet->toArray();
-
-        shuffle($cards);
-
-        return $cardSet->setCards($cards);
+        return $this->sort($cardSet, RandSortingStrategyInterface::NAME);
     }
 }

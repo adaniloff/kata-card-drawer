@@ -16,3 +16,12 @@ services:
     App\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    _instanceof:
+        App\Strategy\SortingStrategyInterface:
+            tags: ['app.strategy.sort']
+
+    App\Facade\CardGameFacade:
+        arguments:
+            - '@App\Builder\CardSet\CardSetBuilder'
+            - !tagged_iterator app.strategy.sort
