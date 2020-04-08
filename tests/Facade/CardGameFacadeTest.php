@@ -73,9 +73,4 @@ final class CardGameFacadeTest extends TestCase
     {
         $this->markTestIncomplete();
     }
-
-    public function testShuffle(): void
-    {
-        $this->markTestIncomplete();
-    }
 }
