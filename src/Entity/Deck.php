@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\ValueObject\CardInterface;
+use App\ValueObject\CardSet;
 use App\ValueObject\CardSetInterface;
 
 class Deck implements DeckInterface
@@ -66,5 +67,10 @@ class Deck implements DeckInterface
     public function count(): int
     {
         return $this->cardSet->count();
+    }
+
+    public function setCards(array $cards): CardSetInterface
+    {
+        return $this->cardSet = new CardSet($cards);
     }
 }

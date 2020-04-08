@@ -46,12 +46,12 @@ class HandGenerateRandomCommand extends Command
 
         $io->text('There is now ' . count($deck) . ' cards left in the deck.');
 
-        $io->text("Shuffling the hand we just go...");
-        $this->game->shuffle($hand);
+        $io->text("Shuffling the hand we just got...");
+        $hand = $this->game->shuffle($hand);
         $io->listing($hand->toArray());
 
         $io->text("And now we sort the hand.");
-        $this->game->sort($hand);
+        $hand = $this->game->sort($hand);
         $io->listing($hand->toArray());
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');

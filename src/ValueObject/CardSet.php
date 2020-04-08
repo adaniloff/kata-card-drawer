@@ -70,4 +70,9 @@ class CardSet implements CardSetInterface
     {
         return count($this->cards);
     }
+
+    public function setCards(array $cards): CardSetInterface
+    {
+        return new self($cards);
+    }
 }

@@ -42,7 +42,6 @@ class CardGameFacade implements CardGameFacadeInterface
         $cards = [];
 
         $deck->rewind();
-
         while ($deck->current() && 0 < $quantity--) {
             $cards[$deck->key()] = $deck->current();
             $deck->next();
@@ -62,6 +61,10 @@ class CardGameFacade implements CardGameFacadeInterface
 
     public function shuffle(CardSetInterface $cardSet): CardSetInterface
     {
-        return $cardSet;
+        $cards = $cardSet->toArray();
+
+        shuffle($cards);
+
+        return $cardSet->setCards($cards);
     }
 }
