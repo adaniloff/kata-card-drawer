@@ -35,16 +35,25 @@ class HandGenerateRandomCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $quantity = $input->getArgument('quantity');
+        $quantity = (int)$input->getArgument('quantity');
 
         $io->text("Building a deck of 52 cards.");
         $deck = $this->game->buildDeck();
 
-        $io->text("Drawing exactly $quantity cards.");
         $hand = $this->game->draw($deck, $quantity);
+
+        if ($quantity > count($hand)) {
+            $io->warning('You want to draw to much cards !');
+        }
+
+        $io->text("Drawing exactly " . count($hand) . " cards.");
         $io->listing($hand->toArray());
 
         $io->text('There is now ' . count($deck) . ' cards left in the deck.');
+
+        if (0 === count($hand)) {
+            $io->warning('You haven\'t drawn a single card !');
+        }
 
         $io->text("Shuffling the hand we just got...");
         $hand = $this->game->shuffle($hand);
