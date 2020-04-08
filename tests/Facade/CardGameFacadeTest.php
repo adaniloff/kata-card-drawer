@@ -4,7 +4,6 @@ namespace App\Facade;
 
 use App\Builder\CardSet\CardSetBuilder;
 use App\Entity\Deck;
-use App\Entity\DeckInterface;
 use App\ValueObject\CardInterface;
 use App\ValueObject\CardSet;
 use PHPUnit\Framework\TestCase;
